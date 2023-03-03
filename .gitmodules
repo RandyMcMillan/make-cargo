@@ -1,3 +1,8 @@
 [submodule "iced"]
 	path = iced
 	url = git@github.com:iced-rs/iced.git
+	ignore = dirty
+[submodule "webview_rust"]
+	path = webview_rust
+	url = git@github.com:webview/webview_rust.git
+	ignore = dirty
