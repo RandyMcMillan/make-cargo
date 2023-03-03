@@ -103,8 +103,8 @@ else
 endif
 
 submodules:checkbrew## 	submodules
-	#@git submodule update --init --recursive
-#	git submodule foreach --recursive "git submodule update --init --recursive"
+	@git submodule update --init --recursive
+	git submodule foreach --recursive "git submodule update --init --recursive"
 
 .PHONY: clean
 .ONESHELL:
