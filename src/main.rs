@@ -20,16 +20,16 @@ match_args {{increase|decrease}} <integer>
 fn main() {
     let mut webview = WebviewBuilder::new()
         .debug(true)
-        .title("TEST")
+        .title("make-cargo")
         .width(1024)
         .height(768)
         .resize(SizeHint::NONE)
         .init("window.x = 42")
         .dispatch(|w| {
             w.set_size(800, 600, SizeHint::MIN);
-            println!("Hello World");
+            println!("Hello make-cargo!!!");
         })
-        .url("https://google.com")
+        .url("https://github.com/RandyMcMillan/make-cargo")
         .build();
 
     let args: Vec<String> = env::args().collect();
