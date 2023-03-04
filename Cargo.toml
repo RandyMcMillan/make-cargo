@@ -6,6 +6,7 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+rust-embed-for-web = "11.1.0"
 # regex = "1.7.1"
 # serde_json = "1.0.93"
 # iced = { version = "0.8.0", path = "iced" }
