@@ -6,7 +6,7 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-regex = "1.7.1"
-serde_json = "1.0.93"
-iced = { version = "0.8.0", path = "iced" }
+# regex = "1.7.1"
+# serde_json = "1.0.93"
+# iced = { version = "0.8.0", path = "iced" }
 webview_official = { version = "0.2.0", path = "webview_rust" }
