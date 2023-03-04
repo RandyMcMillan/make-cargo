@@ -1,4 +1,8 @@
+use std::path::PathBuf;
+use std::fs;
 use std::env;
+use serde_json;
+use regex::Regex;
 use webview_official::{SizeHint, WebviewBuilder};
 
 fn increase(number: i32) {
@@ -17,7 +21,26 @@ match_args {{increase|decrease}} <integer>
     Increase or decrease given integer by one.");
 }
 
+fn determinate_file_size(file: &str) -> u64 {
+    fs::metadata(file).unwrap().len()
+}
+
+fn determinate_is_it_file_or_dirctory(arg: &str) -> &str {
+    let file = "File";
+    let dir = "Directory";
+    let re = Regex::new(r"/").unwrap();
+    if re.is_match(arg) {
+        return dir;
+    }
+    return file;
+}
+
+fn get_current_working_dir() -> std::io::Result<PathBuf> {
+    env::current_dir()
+}
+
 fn main() {
+
     let mut webview = WebviewBuilder::new()
         .debug(true)
         .title("make-cargo")
@@ -29,7 +52,7 @@ fn main() {
             w.set_size(800, 600, SizeHint::MIN);
             println!("Hello make-cargo!!!");
         })
-        .url("https://github.com/RandyMcMillan/make-cargo")
+        // .url("https://github.com/RandyMcMillan/make-cargo")
         .build();
 
     let args: Vec<String> = env::args().collect();
@@ -38,34 +61,23 @@ fn main() {
         // no arguments passed
         1 => {
             println!("My name is 'make-cargo'. Try passing some arguments!");
+			// default web page
+            webview.navigate("https://github.com/RandyMcMillan/make-cargo");
+			webview.run();
         },
         // one argument passed
         2 => {
-            match args[1].parse() {
-                Ok(42) => println!("This is the answer!"),
-                _ => println!("This is not the answer."),
-            }
-			webview.run();
+            let url = &args[1];
+                webview.navigate(url);
+				webview.run();
         },
         // one command and one argument passed
         3 => {
             let cmd = &args[1];
-            let num = &args[2];
-            // parse the number
-            let number: i32 = match num.parse() {
-                Ok(n) => {
-                    n
-                },
-                Err(_) => {
-                    eprintln!("error: second argument not an integer");
-                    help();
-                    return;
-                },
-            };
-            // parse the command
+            let url = &args[2];
             match &cmd[..] {
-                "increase" => increase(number),
-                "decrease" => decrease(number),
+                "open" => { webview.navigate(url);
+				webview.run(); }
                 _ => {
                     eprintln!("error: invalid command");
                     help();
