@@ -1,17 +1,17 @@
-use std::path::PathBuf;
-use std::fs;
+// use std::path::PathBuf;
+// use std::fs;
 use std::env;
-use serde_json;
-use regex::Regex;
+// use serde_json;
+// use regex::Regex;
 use webview_official::{SizeHint, WebviewBuilder};
 
-fn increase(number: i32) {
-    println!("{}", number + 1);
-}
-
-fn decrease(number: i32) {
-    println!("{}", number - 1);
-}
+// fn increase(number: i32) {
+//     println!("{}", number + 1);
+// }
+// 
+// fn decrease(number: i32) {
+//     println!("{}", number - 1);
+// }
 
 fn help() {
     println!("usage:
@@ -21,23 +21,23 @@ match_args {{increase|decrease}} <integer>
     Increase or decrease given integer by one.");
 }
 
-fn determinate_file_size(file: &str) -> u64 {
-    fs::metadata(file).unwrap().len()
-}
-
-fn determinate_is_it_file_or_dirctory(arg: &str) -> &str {
-    let file = "File";
-    let dir = "Directory";
-    let re = Regex::new(r"/").unwrap();
-    if re.is_match(arg) {
-        return dir;
-    }
-    return file;
-}
-
-fn get_current_working_dir() -> std::io::Result<PathBuf> {
-    env::current_dir()
-}
+// fn determinate_file_size(file: &str) -> u64 {
+//     fs::metadata(file).unwrap().len()
+// }
+// 
+// fn determinate_is_it_file_or_dirctory(arg: &str) -> &str {
+//     let file = "File";
+//     let dir = "Directory";
+//     let re = Regex::new(r"/").unwrap();
+//     if re.is_match(arg) {
+//         return dir;
+//     }
+//     return file;
+// }
+// 
+// fn get_current_working_dir() -> std::io::Result<PathBuf> {
+//     env::current_dir()
+// }
 
 fn main() {
 
@@ -63,14 +63,12 @@ fn main() {
             println!("My name is 'make-cargo'. Try passing some arguments!");
 			// default web page
             webview.navigate("https://github.com/RandyMcMillan/make-cargo");
-			webview.run();
-        },
+			webview.run(); },
         // one argument passed
         2 => {
             let url = &args[1];
                 webview.navigate(url);
-				webview.run();
-        },
+				webview.run(); },
         // one command and one argument passed
         3 => {
             let cmd = &args[1];
@@ -80,8 +78,7 @@ fn main() {
 				webview.run(); }
                 _ => {
                     eprintln!("error: invalid command");
-                    help();
-                },
+                    help(); },
             }
         },
         // all the other cases
