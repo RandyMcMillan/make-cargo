@@ -106,11 +106,6 @@ submodules:checkbrew## 	submodules
 	@git submodule update --init --recursive
 	git submodule foreach --recursive "git submodule update --init --recursive"
 
-.PHONY: clean
-.ONESHELL:
-clean: ## 	clean
-	bash -c "rm -rf $(BUILDDIR)"
-
 -include cargo.mk
 # vim: set noexpandtab:
 # vim: set setfiletype make
