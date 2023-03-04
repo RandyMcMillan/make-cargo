@@ -4,6 +4,12 @@ use std::env;
 // use serde_json;
 // use regex::Regex;
 use webview_official::{SizeHint, WebviewBuilder};
+use rust_embed_for_web::{EmbedableFile, RustEmbed};
+#[derive(RustEmbed)]
+#[folder = "${PWD}/public"]
+struct Asset;
+
+
 
 // fn increase(number: i32) {
 //     println!("{}", number + 1);
@@ -40,6 +46,10 @@ match_args {{increase|decrease}} <integer>
 // }
 
 fn main() {
+
+	let index = Asset::get("index.html").unwrap().data();
+	let _contents = std::str::from_utf8(index.as_ref()).unwrap();
+	// println!("Index file: {}", _contents);
 
     let mut webview = WebviewBuilder::new()
         .debug(true)
