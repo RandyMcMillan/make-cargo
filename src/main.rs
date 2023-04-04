@@ -1,8 +1,8 @@
-// use std::path::PathBuf;
-// use std::fs;
+use std::path::PathBuf;
+use std::fs;
 use std::env;
 // use serde_json;
-// use regex::Regex;
+use regex::Regex;
 use webview_official::{SizeHint, WebviewBuilder};
 use rust_embed_for_web::{EmbedableFile, RustEmbed};
 #[derive(RustEmbed)]
@@ -31,19 +31,28 @@ match_args {{increase|decrease}} <integer>
 //     fs::metadata(file).unwrap().len()
 // }
 // 
-// fn determinate_is_it_file_or_dirctory(arg: &str) -> &str {
-//     let file = "File";
-//     let dir = "Directory";
-//     let re = Regex::new(r"/").unwrap();
-//     if re.is_match(arg) {
-//         return dir;
-//     }
-//     return file;
-// }
-// 
+fn determinate_is_it_file_or_dirctory(arg: &str) -> &str {
+    let file = "File";
+    let dir = "Directory";
+    let re = Regex::new(r"/").unwrap();
+    if re.is_match(arg) {
+        return dir;
+    }
+    return file;
+}
+
 // fn get_current_working_dir() -> std::io::Result<PathBuf> {
-//     env::current_dir()
-// }
+//      env::current_dir()
+//  }
+// 
+
+fn get_current_working_dir() -> String {
+    let res = env::current_dir();
+    match res {
+        Ok(path) => path.into_os_string().into_string().unwrap(),
+        Err(_) => "FAILED".to_string()
+    }
+}
 
 fn main() {
 
@@ -70,9 +79,20 @@ fn main() {
     match args.len() {
         // no arguments passed
         1 => {
+            let _cwd = get_current_working_dir();
+            let _file_or_folder = determinate_is_it_file_or_dirctory(&_cwd);
+            println!("{}", _file_or_folder);
+            println!("{}", &_cwd);
             println!("My name is 'make-cargo'. Try passing some arguments!");
 			// default web page
-            webview.navigate("https://github.com/RandyMcMillan/make-cargo");
+            // webview.navigate("https://github.com/RandyMcMillan/make-cargo");
+            // webview.navigate(_file_or_folder);
+            let _prefix = "file://".to_owned() + &_cwd + "/index.html";
+            let _file_or_folder = determinate_is_it_file_or_dirctory(&_prefix);
+            //let _prefix = &_cwd;
+            println!("{}", &_prefix);
+            println!("{}", &_file_or_folder);
+            webview.navigate(&_prefix);
 			webview.run(); },
         // one argument passed
         2 => {
