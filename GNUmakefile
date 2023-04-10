@@ -94,6 +94,10 @@ report:## 	report
 cargo:## 	cargo-build cargo-install
 	$(MAKE) cargo-build
 	$(MAKE) cargo-install
+.PHONY: actix
+.ONESHELL:
+actix:## 	pushd rust-embed-for-web && cargo run --example actix
+	pushd rust-embed-for-web && cargo run --example actix
 
 checkbrew:## 	checkbrew
 ifeq ($(HOMEBREW),)
