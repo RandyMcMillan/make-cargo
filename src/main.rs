@@ -27,10 +27,6 @@ match_args {{increase|decrease}} <integer>
     Increase or decrease given integer by one.");
 }
 
-// fn determinate_file_size(file: &str) -> u64 {
-//     fs::metadata(file).unwrap().len()
-// }
-// 
 fn determinate_is_it_file_or_dirctory(arg: &str) -> &str {
     let file = "File";
     let dir = "Directory";
@@ -40,11 +36,6 @@ fn determinate_is_it_file_or_dirctory(arg: &str) -> &str {
     }
     return file;
 }
-
-// fn get_current_working_dir() -> std::io::Result<PathBuf> {
-//      env::current_dir()
-//  }
-// 
 
 fn get_current_working_dir() -> String {
     let res = env::current_dir();
@@ -79,6 +70,8 @@ fn main() {
     match args.len() {
         // no arguments passed
         1 => {
+            webview.run(); },
+        2 => {
             let _cwd = get_current_working_dir();
             let _file_or_folder = determinate_is_it_file_or_dirctory(&_cwd);
             println!("{}", _file_or_folder);
@@ -95,12 +88,12 @@ fn main() {
             webview.navigate(&_prefix);
 			webview.run(); },
         // one argument passed
-        2 => {
+        3 => {
             let url = &args[1];
                 webview.navigate(url);
 				webview.run(); },
         // one command and one argument passed
-        3 => {
+        4 => {
             let cmd = &args[1];
             let url = &args[2];
             match &cmd[..] {
