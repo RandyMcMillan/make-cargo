@@ -10,3 +10,6 @@
 	path = rust-embed-for-web
 	url = git@github.com:SeriousBug/rust-embed-for-web.git
 	ignore = dirty
+[submodule "sfz"]
+	path = sfz
+	url = git@github.com:RandyMcMillan/sfz.git
